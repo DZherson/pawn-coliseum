@@ -1,73 +1,78 @@
-# React + TypeScript + Vite
+# Pawn Coliseum ♟️
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Gestor de torneos de ajedrez con emparejamiento por sistema suizo (holandés FIDE)
+y round robin, cálculo de rating ELO y desempates oficiales.
 
-Currently, two official plugins are available:
+🔗 **Demo en vivo:** https://pawn-coliseum.vercel.app
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+> ⚠️ Proyecto en desarrollo activo. Construido como herramienta real para dirigir
+> los torneos del club de ajedrez Ejército de Peones.
 
-## React Compiler
+## El problema que resuelve
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Dirigir un torneo de ajedrez a mano es lento y propenso a errores: emparejar a los
+jugadores respetando colores y rivales previos, calcular desempates y actualizar
+ratings consume tiempo y abre la puerta a equivocaciones. Pawn Coliseum automatiza
+ese proceso aplicando los algoritmos oficiales de la FIDE.
 
-## Expanding the ESLint configuration
+## Características
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Autenticación con roles: administrador, árbitro y jugador.
+- Gestión de jugadores con rating ELO.
+- Creación y configuración de torneos.
+- Emparejamiento automático por sistema suizo holandés (FIDE) y round robin.
+- Registro de resultados ronda por ronda.
+- Cálculo de rating ELO y desempates (Buchholz, Sonneborn-Berger).
+- Perfil público de jugador con historial y evolución de rating.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Stack tecnológico
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- **Frontend:** React 19, TypeScript, Vite 7
+- **Estado del servidor:** TanStack Query
+- **UI:** Tailwind CSS, shadcn/ui
+- **Backend:** Supabase (PostgreSQL, Auth, Row Level Security)
+- **Testing:** Vitest, Testing Library, Playwright
+- **CI/CD:** GitHub Actions, Vercel
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Cómo ejecutarlo en local
+
+Requisitos: Node.js 24 y una cuenta de Supabase.
+
+```bash
+# 1. Clonar el repositorio
+git clone https://github.com/DZherson/pawn-coliseum.git
+cd pawn-coliseum
+
+# 2. Instalar dependencias
+npm install
+
+# 3. Configurar variables de entorno
+cp .env.example .env.local
+# Edita .env.local con tu URL y anon key de Supabase
+
+# 4. Arrancar el servidor de desarrollo
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Scripts disponibles
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+| Comando | Descripción |
+|---|---|
+| `npm run dev` | Servidor de desarrollo |
+| `npm run build` | Build de producción |
+| `npm test` | Ejecuta los tests |
+| `npm run lint` | Análisis de código con ESLint |
+| `npm run typecheck` | Verificación de tipos |
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Estado del proyecto
+
+- [x] Sprint 0 — Setup, infraestructura, CI/CD y deploy
+- [ ] Sprint 1 — Autenticación, roles y gestión de jugadores
+- [ ] Sprint 2 — Torneos y emparejamiento round robin
+- [ ] Sprint 3 — Sistema suizo FIDE
+- [ ] Sprint 4 — Rating ELO, desempates y dashboard
+- [ ] Sprint 5 — Pulido y documentación
+
+## Licencia
+
+MIT
